@@ -3,7 +3,7 @@ name: "Andrej Smatana"
 location: "Brno, Czechia"
 github: "github.com/smatand"
 linkedin: "linkedin.com/in/smatand"
-profile: "Programming enthusiast with a passion for low-level programming. R&D Junior Developer at Veeam Software, working on system technologies and infrastructure solutions."
+profile: ""
 experience:
   - company: "Veeam Software"
     role: "R&D Junior Developer"
