@@ -5,10 +5,15 @@ github: "github.com/smatand"
 linkedin: "linkedin.com/in/smatand"
 profile: "Programming enthusiast with a passion for low-level programming. System admin at Indra Avitech, automating repetitive tasks using Python, PowerShell, or Bash, interacting mostly with pre-built software images."
 experience:
+  - company: "Veeam Software"
+    role: "R&D Junior Developer"
+    location: "Prague, Czechia"
+    duration: "June 2025 - Present"
+    description: ""
   - company: "Indra Avitech s. r. o."
     role: "System Administrator"
     location: "Bratislava, Slovakia"
-    duration: "July 2022 - Present"
+    duration: "July 2022 - June 2025"
     description: "International developer of IT systems for the aviation industry. Patching internal/customer systems, automation with Ansible, Python, PowerShell. Upgrading CentOS to Rocky Linux. Backups via Veeam, VMWare PowerCLI. Jenkins, pfSense VPNs, AWS EC2 with Terraform."
 education:
   - school: "Brno University of Technology"
@@ -47,6 +52,6 @@ spoken:
   - "English (B1)"
 interests:
   - "Hiking"
-  - "Reading books"
+  - "Cycling"
   - "Analog photography"
 ---
