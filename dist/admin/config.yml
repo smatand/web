@@ -1,0 +1,54 @@
+backend:
+  name: github
+  repo: your-username/your-repo-name  # TODO: change this
+  branch: main
+
+media_folder: "src/assets/images"
+public_folder: "/src/assets/images"
+
+collections:
+  - name: "projects"
+    label: "Projects"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "URL", name: "url", widget: "string", required: false }
+      - label: "Languages"
+        name: "languages"
+        widget: "list"
+        field: { label: "Language", name: "language", widget: "string" }
+
+  - name: "photos"
+    label: "Photos"
+    folder: "src/content/photos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Caption", name: "caption", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "datetime" }
+
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "About / CV"
+        name: "about"
+        file: "src/content/pages/about.md"
+        fields:
+          - { label: "Intro", name: "intro", widget: "text" }
+          - label: "Experience"
+            name: "experience"
+            widget: "list"
+            fields:
+              - { label: "Company", name: "company", widget: "string" }
+              - { label: "Role", name: "role", widget: "string" }
+              - { label: "Duration", name: "duration", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - label: "Languages"
+            name: "languages"
+            widget: "list"
+            field: { label: "Language", name: "language", widget: "string" }

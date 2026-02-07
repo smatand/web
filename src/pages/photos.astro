@@ -1,0 +1,56 @@
+---
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+
+const photos = (await getCollection("photos")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<Base
+  title="Integrated Display Configuration"
+  helpText="Analog camera photo output. Captured on film, digitized for display."
+  parentHref="/"
+>
+  <div class="sec">Display Adapter: Analog Camera Output</div>
+  <div class="row" data-help="Total number of photos in the gallery.">
+    <span class="k">Total Frames Captured</span>
+    <span class="v">{photos.length}</span>
+  </div>
+  <div class="row" data-help="Current output rendering mode.">
+    <span class="k">Output Mode</span>
+    <span class="v">Gallery</span>
+  </div>
+
+  {photos.length === 0 && (
+    <div class="ln dim" style="margin-top:8px;">
+      No display output detected. Upload photos via /admin/ CMS panel.
+    </div>
+  )}
+
+  {photos.length > 0 && (
+    <div class="gallery">
+      {photos.map((photo) => (
+        <div class="thumb">
+          <Image src={photo.data.image} alt={photo.data.caption ?? photo.data.title} width={300} />
+          <div class="cap">
+            {photo.data.caption ?? photo.data.title}
+            <br />
+            {photo.data.date.toLocaleDateString()}
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+
+  <div class="sec">Navigation</div>
+  <a class="row" href="/" data-help="Return to main CMOS setup screen.">
+    <span class="k">&#9654; Standard CMOS Features</span>
+    <span class="v">Home</span>
+  </a>
+  <a class="row" href="/projects" data-help="View installed projects.">
+    <span class="k">&#9654; Advanced Chipset Features</span>
+    <span class="v">Projects</span>
+  </a>
+</Base>

@@ -1,0 +1,44 @@
+---
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+---
+
+<Base
+  title="Advanced Chipset Features"
+  helpText="Installed projects and their runtime configurations."
+  parentHref="/"
+>
+  <div class="sec">Installed Peripherals (Projects)</div>
+
+  {projects.length === 0 && (
+    <div class="ln dim">No devices detected. Install projects via CMS admin panel.</div>
+  )}
+
+  {projects.map((project, i) => (
+    <Fragment>
+      {project.data.url ? (
+        <a class="row" href={project.data.url} data-help={`${project.data.description} Technologies: ${project.data.languages.join(", ")}.`}>
+          <span class="k">Device {i}: {project.data.title}</span>
+          <span class="v">{project.data.languages.join(", ")}</span>
+        </a>
+      ) : (
+        <div class="row" data-help={`${project.data.description} Technologies: ${project.data.languages.join(", ")}.`}>
+          <span class="k">Device {i}: {project.data.title}</span>
+          <span class="v">{project.data.languages.join(", ")}</span>
+        </div>
+      )}
+    </Fragment>
+  ))}
+
+  <div class="sec">Navigation</div>
+  <a class="row" href="/" data-help="Return to main CMOS setup screen.">
+    <span class="k">&#9654; Standard CMOS Features</span>
+    <span class="v">Home</span>
+  </a>
+  <a class="row" href="/photos" data-help="View analog camera photo output.">
+    <span class="k">&#9654; Integrated Display Config</span>
+    <span class="v">Photos</span>
+  </a>
+</Base>

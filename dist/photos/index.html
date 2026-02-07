@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en" data-parent="/" data-astro-cid-5hce7sga> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Integrated Display Configuration</title><link rel="stylesheet" href="/_astro/index.D_Lpzzn-.css"></head> <body data-astro-cid-5hce7sga> <div class="screen" data-astro-cid-5hce7sga> <div class="title-bar" data-astro-cid-5hce7sga> <div class="copy" data-astro-cid-5hce7sga>CMOS Setup Utility - Copyright (C) 1984-2025 Award Software</div> <div class="page" data-astro-cid-5hce7sga>Integrated Display Configuration</div> </div> <div class="panel" data-astro-cid-5hce7sga> <div class="left" data-astro-cid-5hce7sga>  <div class="sec">Display Adapter: Analog Camera Output</div> <div class="row" data-help="Total number of photos in the gallery."> <span class="k">Total Frames Captured</span> <span class="v">0</span> </div> <div class="row" data-help="Current output rendering mode."> <span class="k">Output Mode</span> <span class="v">Gallery</span> </div> <div class="ln dim" style="margin-top:8px;">
+No display output detected. Upload photos via /admin/ CMS panel.
+</div><div class="sec">Navigation</div> <a class="row" href="/" data-help="Return to main CMOS setup screen."> <span class="k">&#9654; Standard CMOS Features</span> <span class="v">Home</span> </a> <a class="row" href="/projects" data-help="View installed projects."> <span class="k">&#9654; Advanced Chipset Features</span> <span class="v">Projects</span> </a>  </div> <div class="right" data-astro-cid-5hce7sga> <div class="help-head" data-astro-cid-5hce7sga>Item Help</div> <div class="help-menu" data-astro-cid-5hce7sga>Menu Level &nbsp; &#9654;</div> <div class="help-body" id="help-body" data-astro-cid-5hce7sga>Analog camera photo output. Captured on film, digitized for display.</div> </div> </div> <div class="hotbar" data-astro-cid-5hce7sga> <span class="hk" data-astro-cid-5hce7sga><span class="hi" data-astro-cid-5hce7sga>&#8593;&#8595;</span><span class="lo" data-astro-cid-5hce7sga>:Move</span></span> <span class="hk" data-astro-cid-5hce7sga><span class="hi" data-astro-cid-5hce7sga>Enter</span><span class="lo" data-astro-cid-5hce7sga>:Select</span></span> <span class="hk" data-astro-cid-5hce7sga><span class="hi" data-astro-cid-5hce7sga>+/-</span><span class="lo" data-astro-cid-5hce7sga>:Value</span></span> <span class="hk" data-astro-cid-5hce7sga><span class="hi" data-astro-cid-5hce7sga>F10</span><span class="lo" data-astro-cid-5hce7sga>:Save</span></span> <span class="hk" data-astro-cid-5hce7sga><span class="hi" data-astro-cid-5hce7sga>ESC</span><span class="lo" data-astro-cid-5hce7sga>:Back</span></span> <span class="hk" data-astro-cid-5hce7sga><span class="hi" data-astro-cid-5hce7sga>F1</span><span class="lo" data-astro-cid-5hce7sga>:Help</span></span> <span class="hk" data-astro-cid-5hce7sga><span class="hi" data-astro-cid-5hce7sga>F7</span><span class="lo" data-astro-cid-5hce7sga>:Theme</span></span> </div> </div> <script>(function(){const parentHref = "/";
+
+      const html = document.documentElement;
+      const helpBody = document.getElementById("help-body");
+      const defaultHelp = helpBody?.textContent ?? "";
+
+      // theme from storage
+      if (localStorage.getItem("theme") === "dark") {
+        html.classList.add("dark");
+      }
+
+      // all navigable rows
+      const rows = Array.from(document.querySelectorAll(".row"));
+      let idx = 0;
+
+      function activate(i) {
+        rows.forEach((r) => r.classList.remove("active"));
+        idx = ((i % rows.length) + rows.length) % rows.length;
+        const row = rows[idx];
+        if (row) {
+          row.classList.add("active");
+          row.scrollIntoView({ block: "nearest" });
+          // update help panel
+          if (helpBody) {
+            helpBody.textContent = row.dataset.help || defaultHelp;
+          }
+        }
+      }
+
+      if (rows.length > 0) activate(0);
+
+      document.addEventListener("keydown", (e) => {
+        switch (e.key) {
+          case "ArrowDown":
+          case "+":
+            e.preventDefault();
+            activate(idx + 1);
+            break;
+
+          case "ArrowUp":
+          case "-":
+            e.preventDefault();
+            activate(idx - 1);
+            break;
+
+          case "Enter": {
+            e.preventDefault();
+            const el = rows[idx];
+            if (el && el.tagName === "A") {
+              el.click();
+            }
+            break;
+          }
+
+          case "Escape": {
+            e.preventDefault();
+            const parent = html.dataset.parent;
+            if (parent) {
+              window.location.href = parent;
+            }
+            break;
+          }
+
+          case "F7":
+            e.preventDefault();
+            html.classList.toggle("dark");
+            localStorage.setItem(
+              "theme",
+              html.classList.contains("dark") ? "dark" : "light",
+            );
+            break;
+
+          case "F1":
+            e.preventDefault();
+            if (helpBody) {
+              helpBody.textContent =
+                "↑↓ or +/- to move between items. Enter to follow links. ESC to go back. F7 to toggle theme.";
+            }
+            break;
+        }
+      });
+
+      // mouse click on rows
+      rows.forEach((row, i) => {
+        row.addEventListener("click", () => activate(i));
+      });
+    })();</script> </body> </html>

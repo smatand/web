@@ -1,0 +1,59 @@
+---
+import Base from "../layouts/Base.astro";
+import matter from "gray-matter";
+import fs from "node:fs";
+
+const raw = fs.readFileSync("src/content/pages/about.md", "utf-8");
+const { data } = matter(raw);
+
+const intro: string = data.intro ?? "";
+const experience: { company: string; role: string; duration: string; description: string }[] = data.experience ?? [];
+const languages: string[] = data.languages ?? [];
+---
+
+<Base
+  title="Standard CMOS Features"
+  helpText="Personal system information and configuration overview."
+>
+  <div class="sec">System Information</div>
+  <div class="row" data-help="The name of the system operator.">
+    <span class="k">Operator</span>
+    <span class="v">Your Name Here</span>
+  </div>
+  <div class="row" data-help="Current operational status of this unit.">
+    <span class="k">Status</span>
+    <span class="v">Available</span>
+  </div>
+  <div class="row" data-help="Physical location of this system.">
+    <span class="k">Location</span>
+    <span class="v">Earth</span>
+  </div>
+
+  <div class="ln dim" style="margin-top:6px;">{intro}</div>
+
+  <div class="sec">Installed Languages</div>
+  {languages.map((lang, i) => (
+    <div class="row" data-help={`Programming language installed in slot ${i}.`}>
+      <span class="k">Language Slot {i}</span>
+      <span class="v">{lang}</span>
+    </div>
+  ))}
+
+  <div class="sec">Work Experience Log</div>
+  {experience.map((exp) => (
+    <div class="row" data-help={`${exp.duration}. ${exp.description}`}>
+      <span class="k">{exp.role}</span>
+      <span class="v">{exp.company}</span>
+    </div>
+  ))}
+
+  <div class="sec">Navigation</div>
+  <a class="row" href="/projects" data-help="View installed projects and their configurations.">
+    <span class="k">&#9654; Advanced Chipset Features</span>
+    <span class="v">Projects</span>
+  </a>
+  <a class="row" href="/photos" data-help="View analog camera photo output.">
+    <span class="k">&#9654; Integrated Display Config</span>
+    <span class="v">Photos</span>
+  </a>
+</Base>
