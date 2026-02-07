@@ -13,35 +13,239 @@ const projects: { name: string; url: string; description: string; lang: string }
 const languages: string[] = data.languages ?? [];
 const spoken: string[] = data.spoken ?? [];
 const interests: string[] = data.interests ?? [];
+
+// DESIGN OPTION: Change this to switch themes
+// Options: "modern-clean", "retro-cyber", "minimal-cards", "gradient-bold"
+const designTheme = "modern-clean";
 ---
 
 <Base title="About / CV">
-  <style>
-    /* ═══ ABOUT PAGE OVERRIDES ═══ */
-    .about-container {
+  <style define:vars={{ designTheme }}>
+    /* ═══ DESIGN 1: MODERN CLEAN (default) ═══ */
+    .about-container[data-design="modern-clean"] {
       padding: 0;
     }
 
-    /* Profile section at the top */
-    .profile-section {
+    .about-container[data-design="modern-clean"] .profile-section {
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border-bottom: 2px solid #e94560;
+      border-bottom: 2px solid #2ecc71;
       padding: 20px 0;
       margin: -24px -28px 24px;
     }
 
-    .profile-inner {
-      padding: 0 28px;
-    }
-
-    .profile-text {
+    .about-container[data-design="modern-clean"] .profile-text {
       font-size: 13px;
       line-height: 1.8;
       color: #ccc;
       margin-bottom: 0;
     }
 
-    /* Two-column layout for skills and personal info */
+    .about-container[data-design="modern-clean"] .info-box {
+      background: #1a1a2e;
+      border: 1px solid #333;
+      border-left: 3px solid #2ecc71;
+      padding: 16px;
+    }
+
+    .about-container[data-design="modern-clean"] .timeline-item::before {
+      background: #2ecc71;
+      border: 2px solid #222233;
+    }
+
+    /* ═══ DESIGN 2: RETRO CYBER ═══ */
+    .about-container[data-design="retro-cyber"] .profile-section {
+      background: #111;
+      border: 2px solid #2ecc71;
+      border-style: dashed;
+      padding: 16px 0;
+      margin: -24px -28px 24px;
+      box-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
+    }
+
+    .about-container[data-design="retro-cyber"] .profile-text {
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      color: #7ec8e3;
+      margin-bottom: 0;
+      letter-spacing: 0.5px;
+    }
+
+    .about-container[data-design="retro-cyber"] .info-box {
+      background: #0f0f1f;
+      border: 2px dashed #7ec8e3;
+      padding: 14px;
+      box-shadow: inset 0 0 5px rgba(126, 200, 227, 0.1);
+    }
+
+    .about-container[data-design="retro-cyber"] .info-box h3 {
+      color: #7ec8e3;
+      text-shadow: 0 0 5px rgba(126, 200, 227, 0.5);
+    }
+
+    .about-container[data-design="retro-cyber"] .lang-badge {
+      background: #0a0a15;
+      border: 1px solid #7ec8e3;
+      color: #7ec8e3;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      box-shadow: 0 0 3px rgba(126, 200, 227, 0.3);
+    }
+
+    .about-container[data-design="retro-cyber"] .timeline-item::before {
+      background: #7ec8e3;
+      box-shadow: 0 0 8px rgba(126, 200, 227, 0.6);
+    }
+
+    .about-container[data-design="retro-cyber"] .project-card {
+      background: #0f0f1f;
+      border: 2px dashed #7ec8e3;
+      box-shadow: inset 0 0 5px rgba(126, 200, 227, 0.1);
+      transition: all 0.25s ease;
+    }
+
+    .about-container[data-design="retro-cyber"] .project-card:hover {
+      box-shadow: 0 0 15px rgba(46, 204, 113, 0.4), inset 0 0 5px rgba(46, 204, 113, 0.1);
+      border-color: #2ecc71;
+    }
+
+    /* ═══ DESIGN 3: MINIMAL CARDS ═══ */
+    .about-container[data-design="minimal-cards"] .profile-section {
+      background: transparent;
+      border-bottom: 1px solid #333;
+      padding: 12px 0 20px;
+      margin: -24px -28px 24px;
+    }
+
+    .about-container[data-design="minimal-cards"] .profile-text {
+      font-size: 13px;
+      line-height: 1.8;
+      color: #bbb;
+      margin-bottom: 0;
+    }
+
+    .about-container[data-design="minimal-cards"] .info-box {
+      background: transparent;
+      border: none;
+      border-top: 2px solid #2ecc71;
+      padding: 12px 0;
+      border-left: none;
+    }
+
+    .about-container[data-design="minimal-cards"] .info-box h3 {
+      border-bottom: none;
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+
+    .about-container[data-design="minimal-cards"] .lang-badge {
+      background: transparent;
+      border: 1px solid #7ec8e3;
+      padding: 6px 12px;
+    }
+
+    .about-container[data-design="minimal-cards"] .timeline-item::before {
+      width: 10px;
+      height: 10px;
+      background: #2ecc71;
+    }
+
+    .about-container[data-design="minimal-cards"] .timeline-desc {
+      display: none;
+    }
+
+    .about-container[data-design="minimal-cards"] .project-card {
+      background: transparent;
+      border: 1px solid #333;
+      border-left: 3px solid #2ecc71;
+      padding: 12px;
+    }
+
+    /* ═══ DESIGN 4: GRADIENT BOLD ═══ */
+    .about-container[data-design="gradient-bold"] .profile-section {
+      background: linear-gradient(135deg, #2ecc71 0%, #c23150 100%);
+      padding: 24px 0;
+      margin: -24px -28px 24px;
+      border: none;
+    }
+
+    .about-container[data-design="gradient-bold"] .profile-text {
+      font-size: 13px;
+      line-height: 1.8;
+      color: #fff;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    .about-container[data-design="gradient-bold"] .info-box {
+      background: linear-gradient(135deg, #1a1a2e 0%, #222233 100%);
+      border: 2px solid #2ecc71;
+      border-left: 2px solid #2ecc71;
+      padding: 16px;
+    }
+
+    .about-container[data-design="gradient-bold"] .info-box h3 {
+      color: #2ecc71;
+      border-bottom: 2px solid #2ecc71;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .about-container[data-design="gradient-bold"] .lang-badge {
+      background: linear-gradient(135deg, #2ecc71 0%, #7ec8e3 100%);
+      border: none;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .about-container[data-design="gradient-bold"] .interest-tag {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border: 2px solid #7ec8e3;
+      color: #7ec8e3;
+    }
+
+    .about-container[data-design="gradient-bold"] .interest-tag.primary {
+      background: linear-gradient(135deg, #2ecc71 0%, #c23150 100%);
+      border: none;
+      color: #fff;
+    }
+
+    .about-container[data-design="gradient-bold"] .timeline-item::before {
+      background: linear-gradient(135deg, #2ecc71 0%, #7ec8e3 100%);
+      width: 12px;
+      height: 12px;
+    }
+
+    .about-container[data-design="gradient-bold"] .project-card {
+      background: linear-gradient(135deg, #1a1a2e 0%, #222233 100%);
+      border: 2px solid #2ecc71;
+      transition: all 0.25s ease;
+    }
+
+    .about-container[data-design="gradient-bold"] .project-card:hover {
+      box-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* ═══ SHARED STYLES ═══ */
+    .about-container {
+      padding: 0;
+      user-select: none;
+    }
+
+    /* Add subtle cyberpunk atmosphere */
+    .about-container * {
+      cursor: default;
+    }
+
+    .about-container a {
+      user-select: auto;
+      cursor: pointer;
+    }
+
+    .profile-inner {
+      padding: 0 28px;
+    }
+
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -49,18 +253,11 @@ const interests: string[] = data.interests ?? [];
       margin-bottom: 24px;
     }
 
-    .info-box {
-      background: #1a1a2e;
-      border: 1px solid #333;
-      border-left: 3px solid #e94560;
-      padding: 16px;
-    }
-
     .info-box h3 {
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: #e94560;
+      color: #2ecc71;
       border-bottom: 1px solid #333;
       padding-bottom: 8px;
       margin-bottom: 12px;
@@ -89,7 +286,6 @@ const interests: string[] = data.interests ?? [];
       border-radius: 0;
     }
 
-    /* Timeline layout for experience and education */
     .timeline-section {
       margin-bottom: 32px;
     }
@@ -109,8 +305,8 @@ const interests: string[] = data.interests ?? [];
       top: 6px;
       width: 8px;
       height: 8px;
-      background: #e94560;
-      border: 2px solid #1a1a2e;
+      background: #2ecc71;
+      border: 2px solid #222233;
     }
 
     .timeline-content {
@@ -131,7 +327,7 @@ const interests: string[] = data.interests ?? [];
     }
 
     .timeline-date {
-      color: #e94560;
+      color: #2ecc71;
       font-size: 11px;
       font-weight: bold;
       margin-bottom: 6px;
@@ -143,7 +339,6 @@ const interests: string[] = data.interests ?? [];
       line-height: 1.65;
     }
 
-    /* Projects section */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -157,6 +352,14 @@ const interests: string[] = data.interests ?? [];
       padding: 12px;
       display: flex;
       flex-direction: column;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .project-card:hover {
+      border-color: #2ecc71;
+      background: #222233;
+      box-shadow: 0 0 12px rgba(46, 204, 113, 0.2);
     }
 
     .project-card-title {
@@ -183,14 +386,13 @@ const interests: string[] = data.interests ?? [];
     }
 
     .project-card-lang {
-      color: #e94560;
+      color: #2ecc71;
       font-size: 10px;
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    /* Interests and languages section */
     .interest-tags {
       display: flex;
       flex-wrap: wrap;
@@ -208,11 +410,10 @@ const interests: string[] = data.interests ?? [];
     }
 
     .interest-tag.primary {
-      border-color: #e94560;
-      color: #e94560;
+      border-color: #2ecc71;
+      color: #2ecc71;
     }
 
-    /* Section divider */
     .section-divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, #333, transparent);
@@ -241,7 +442,7 @@ const interests: string[] = data.interests ?? [];
     }
   </style>
 
-  <div class="about-container">
+  <div class="about-container" data-design={designTheme}>
     {profile && (
       <div class="profile-section">
         <div class="profile-inner">
@@ -250,40 +451,7 @@ const interests: string[] = data.interests ?? [];
       </div>
     )}
 
-    <!-- Skills and Personal Info Grid -->
-    <div class="about-grid">
-      <div class="info-box">
-        <h3>Programming Languages</h3>
-        <div class="lang-grid">
-          {languages.map((lang) => (
-            <div class="lang-badge">{lang}</div>
-          ))}
-        </div>
-      </div>
-
-      <div class="info-box">
-        <h3>Spoken Languages</h3>
-        <div class="interest-tags">
-          {spoken.map((lang) => (
-            <span class="interest-tag">{lang}</span>
-          ))}
-        </div>
-      </div>
-    </div>
-
-    <div class="about-grid">
-      <div class="info-box">
-        <h3>Interests</h3>
-        <div class="interest-tags">
-          {interests.map((i) => (
-            <span class="interest-tag primary">{i}</span>
-          ))}
-        </div>
-      </div>
-    </div>
-
     <!-- Experience Section -->
-    <div class="section-divider"></div>
     <h2>Work Experience</h2>
     <div class="timeline-section">
       {experience.map((exp) => (
@@ -327,5 +495,51 @@ const interests: string[] = data.interests ?? [];
         </div>
       ))}
     </div>
+
+    <!-- Languages and Interests at Bottom -->
+    <div class="section-divider"></div>
+    <div class="about-grid">
+      <div class="info-box">
+        <h3>Programming Languages</h3>
+        <div class="lang-grid">
+          {languages.map((lang) => (
+            <div class="lang-badge">{lang}</div>
+          ))}
+        </div>
+      </div>
+
+      <div class="info-box">
+        <h3>Spoken Languages</h3>
+        <div class="interest-tags">
+          {spoken.map((lang) => (
+            <span class="interest-tag">{lang}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="about-grid">
+      <div class="info-box">
+        <h3>Interests</h3>
+        <div class="interest-tags">
+          {interests.map((i) => (
+            <span class="interest-tag primary">{i}</span>
+          ))}
+        </div>
+      </div>
+    </div>
   </div>
+
+  <script>
+    // Make entire project cards clickable
+    document.querySelectorAll('.project-card').forEach(card => {
+      const link = card.querySelector('a');
+      if (link) {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => {
+          window.open(link.href, '_blank');
+        });
+      }
+    });
+  </script>
 </Base>

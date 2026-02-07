@@ -14,16 +14,18 @@ const year = new Date().getFullYear();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>~smatand - {title}</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Trebuchet+MS&family=Georgia&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap");
 
       * { margin: 0; padding: 0; box-sizing: border-box; }
 
       body {
-        background: #2b2b3d;
+        background: linear-gradient(135deg, #0a0a0a 0%, #3a3a4a 50%, #1a1a2a 100%);
+        background-attachment: fixed;
         color: #e0e0e0;
-        font-family: Verdana, "Trebuchet MS", Geneva, sans-serif;
-        font-size: 13px;
-        line-height: 1.7;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        user-select: none;
       }
 
       /* ═══ TOP BANNER ═══ */
@@ -43,7 +45,7 @@ const year = new Date().getFullYear();
       }
 
       .banner h1 span {
-        color: #e94560;
+        color: #2ecc71;
       }
 
       .banner .tagline {
@@ -82,7 +84,7 @@ const year = new Date().getFullYear();
 
       .navbar a:hover,
       .navbar a.active {
-        background: #e94560;
+        background: #2ecc71;
         color: #fff;
       }
 
@@ -113,7 +115,7 @@ const year = new Date().getFullYear();
         font-size: 10px;
         text-transform: uppercase;
         letter-spacing: 1.5px;
-        color: #e94560;
+        color: #2ecc71;
         border-bottom: 1px solid #333;
         padding-bottom: 6px;
         margin-bottom: 10px;
@@ -149,7 +151,7 @@ const year = new Date().getFullYear();
       }
 
       .sidebar .links-list a:hover {
-        color: #e94560;
+        color: #2ecc71;
       }
 
       .sidebar .links-list a::before {
@@ -162,7 +164,7 @@ const year = new Date().getFullYear();
         border: 1px solid #333;
         padding: 8px;
         text-align: center;
-        color: #e94560;
+        color: #2ecc71;
         font-family: "Courier New", monospace;
         font-size: 14px;
         font-weight: bold;
@@ -188,7 +190,7 @@ const year = new Date().getFullYear();
         font-size: 20px;
         font-weight: 400;
         color: #e0e0e0;
-        border-bottom: 2px solid #e94560;
+        border-bottom: 2px solid #2ecc71;
         padding-bottom: 6px;
         margin-bottom: 16px;
         margin-top: 28px;
@@ -200,7 +202,7 @@ const year = new Date().getFullYear();
 
       .content h3 {
         font-size: 14px;
-        color: #e94560;
+        color: #2ecc71;
         margin-top: 18px;
         margin-bottom: 6px;
       }
@@ -213,11 +215,24 @@ const year = new Date().getFullYear();
       .content a {
         color: #7ec8e3;
         text-decoration: none;
+        cursor: pointer;
       }
 
       .content a:hover {
         text-decoration: underline;
         color: #aedff7;
+      }
+
+      /* Remove text cursor from non-interactive elements */
+      h1, h2, h3, h4, h5, h6, p, span, div {
+        user-select: none;
+        cursor: default;
+      }
+
+      /* Allow text selection only on links and text content */
+      a, button {
+        user-select: auto;
+        cursor: pointer;
       }
 
       .content ul {
@@ -242,7 +257,7 @@ const year = new Date().getFullYear();
       .xp-card {
         background: #1a1a2e;
         border: 1px solid #333;
-        border-left: 3px solid #e94560;
+        border-left: 3px solid #2ecc71;
         padding: 14px 16px;
         margin: 10px 0;
       }
@@ -260,7 +275,7 @@ const year = new Date().getFullYear();
       }
 
       .xp-card .xp-date {
-        color: #e94560;
+        color: #2ecc71;
         font-size: 11px;
         font-weight: bold;
         margin-top: 4px;
@@ -291,8 +306,8 @@ const year = new Date().getFullYear();
       }
 
       .tag.primary {
-        border-color: #e94560;
-        color: #e94560;
+        border-color: #2ecc71;
+        color: #2ecc71;
       }
 
       /* ── Project rows ── */
@@ -324,7 +339,7 @@ const year = new Date().getFullYear();
 
       .project-lang {
         font-size: 11px;
-        color: #e94560;
+        color: #2ecc71;
         font-weight: bold;
         white-space: nowrap;
       }
@@ -374,7 +389,7 @@ const year = new Date().getFullYear();
         margin: 8px auto;
         width: 200px;
         height: 1px;
-        background: linear-gradient(90deg, transparent, #e94560, transparent);
+        background: linear-gradient(90deg, transparent, #2ecc71, transparent);
       }
 
       /* ═══ RESPONSIVE ═══ */
@@ -424,12 +439,6 @@ const year = new Date().getFullYear();
           </ul>
         </div>
 
-        <div class="widget">
-          <div class="widget-title">Languages</div>
-          <p style="color: #7ec8e3; font-size: 11px; line-height: 1.8;">
-            Go · C++ · Rust · Python · TypeScript · PowerShell · Bash
-          </p>
-        </div>
 
         <div class="widget">
           <div class="counter-box">004,217</div>
