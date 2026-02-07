@@ -11,11 +11,6 @@ experience:
     duration: "July 2022 - Present"
     description: "International developer of IT systems for the aviation industry. Patching internal/customer systems, automation with Ansible, Python, PowerShell. Upgrading CentOS to Rocky Linux. Backups via Veeam, VMWare PowerCLI. Jenkins, pfSense VPNs, AWS EC2 with Terraform."
 education:
-  - school: "Masaryk's University"
-    faculty: "Faculty of Informatics"
-    degree: "Master of Information Security"
-    location: "Brno, Czechia"
-    duration: "Sep. 2024 - present"
   - school: "Brno University of Technology"
     faculty: "Faculty of Information Technology"
     degree: "Bachelor of Information Technology"

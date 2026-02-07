@@ -27,8 +27,8 @@ const designTheme = "modern-clean";
     }
 
     .about-container[data-design="modern-clean"] .profile-section {
-      background: linear-gradient(135deg, #2a1a26 0%, #3d2333 100%);
-      border-bottom: 2px solid #2ecc71;
+      background: linear-gradient(135deg, #000000 0%, #000000 100%);
+      border-bottom: 2px solid #ff8c00;
       padding: 20px 0;
       margin: -24px -28px 24px;
     }
@@ -41,21 +41,21 @@ const designTheme = "modern-clean";
     }
 
     .about-container[data-design="modern-clean"] .info-box {
-      background: #1a0a15;
+      background: #000000;
       border: 1px solid #333;
-      border-left: 3px solid #2ecc71;
+      border-left: 3px solid #ff8c00;
       padding: 16px;
     }
 
     .about-container[data-design="modern-clean"] .timeline-item::before {
-      background: #2ecc71;
+      background: #ff8c00;
       border: 2px solid #222233;
     }
 
     /* ═══ DESIGN 2: RETRO CYBER ═══ */
     .about-container[data-design="retro-cyber"] .profile-section {
       background: #111;
-      border: 2px solid #2ecc71;
+      border: 2px solid #ff8c00;
       border-style: dashed;
       padding: 16px 0;
       margin: -24px -28px 24px;
@@ -71,7 +71,7 @@ const designTheme = "modern-clean";
     }
 
     .about-container[data-design="retro-cyber"] .info-box {
-      background: #1a0a15;
+      background: #000000;
       border: 2px dashed #7ec8e3;
       padding: 14px;
       box-shadow: inset 0 0 5px rgba(126, 200, 227, 0.1);
@@ -83,12 +83,12 @@ const designTheme = "modern-clean";
     }
 
     .about-container[data-design="retro-cyber"] .lang-badge {
-      background: #1a0a15;
-      border: 1px solid #7ec8e3;
-      color: #7ec8e3;
+      background: #000000;
+      border: 1px solid #ff8c00;
+      color: #ff8c00;
       font-family: 'Courier New', monospace;
       font-weight: bold;
-      box-shadow: 0 0 3px rgba(126, 200, 227, 0.3);
+      box-shadow: 0 0 3px rgba(255, 140, 0, 0.3);
     }
 
     .about-container[data-design="retro-cyber"] .timeline-item::before {
@@ -97,7 +97,7 @@ const designTheme = "modern-clean";
     }
 
     .about-container[data-design="retro-cyber"] .project-card {
-      background: #1a0a15;
+      background: #000000;
       border: 2px dashed #7ec8e3;
       box-shadow: inset 0 0 5px rgba(126, 200, 227, 0.1);
       transition: all 0.25s ease;
@@ -105,7 +105,7 @@ const designTheme = "modern-clean";
 
     .about-container[data-design="retro-cyber"] .project-card:hover {
       box-shadow: 0 0 15px rgba(46, 204, 113, 0.4), inset 0 0 5px rgba(46, 204, 113, 0.1);
-      border-color: #2ecc71;
+      border-color: #ff8c00;
     }
 
     /* ═══ DESIGN 3: MINIMAL CARDS ═══ */
@@ -126,7 +126,7 @@ const designTheme = "modern-clean";
     .about-container[data-design="minimal-cards"] .info-box {
       background: transparent;
       border: none;
-      border-top: 2px solid #2ecc71;
+      border-top: 2px solid #ff8c00;
       padding: 12px 0;
       border-left: none;
     }
@@ -139,14 +139,16 @@ const designTheme = "modern-clean";
 
     .about-container[data-design="minimal-cards"] .lang-badge {
       background: transparent;
-      border: 1px solid #7ec8e3;
+      border: 1px solid #ff8c00;
       padding: 6px 12px;
+      color: #ff8c00;
+      font-weight: bold;
     }
 
     .about-container[data-design="minimal-cards"] .timeline-item::before {
       width: 10px;
       height: 10px;
-      background: #2ecc71;
+      background: #ff8c00;
     }
 
     .about-container[data-design="minimal-cards"] .timeline-desc {
@@ -154,15 +156,15 @@ const designTheme = "modern-clean";
     }
 
     .about-container[data-design="minimal-cards"] .project-card {
-      background: #1a0a15;
+      background: #000000;
       border: 1px solid #333;
-      border-left: 3px solid #2ecc71;
+      border-left: 3px solid #ff8c00;
       padding: 12px;
     }
 
     /* ═══ DESIGN 4: GRADIENT BOLD ═══ */
     .about-container[data-design="gradient-bold"] .profile-section {
-      background: linear-gradient(135deg, #2ecc71 0%, #c23150 100%);
+      background: linear-gradient(135deg, #ff8c00 0%, #c23150 100%);
       padding: 24px 0;
       margin: -24px -28px 24px;
       border: none;
@@ -177,47 +179,47 @@ const designTheme = "modern-clean";
     }
 
     .about-container[data-design="gradient-bold"] .info-box {
-      background: linear-gradient(135deg, #1a0a15 0%, #2a1a26 100%);
-      border: 2px solid #2ecc71;
-      border-left: 2px solid #2ecc71;
+      background: linear-gradient(135deg, #000000 0%, #000000 100%);
+      border: 2px solid #ff8c00;
+      border-left: 2px solid #ff8c00;
       padding: 16px;
     }
 
     .about-container[data-design="gradient-bold"] .info-box h3 {
-      color: #2ecc71;
-      border-bottom: 2px solid #2ecc71;
+      color: #ff8c00;
+      border-bottom: 2px solid #ff8c00;
       text-transform: uppercase;
       font-weight: bold;
     }
 
     .about-container[data-design="gradient-bold"] .lang-badge {
-      background: linear-gradient(135deg, #2ecc71 0%, #c23150 100%);
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6347 100%);
       border: none;
       color: #fff;
       font-weight: bold;
     }
 
     .about-container[data-design="gradient-bold"] .interest-tag {
-      background: linear-gradient(135deg, #2a1a26 0%, #3d2333 100%);
+      background: linear-gradient(135deg, #000000 0%, #000000 100%);
       border: 2px solid #7ec8e3;
       color: #7ec8e3;
     }
 
     .about-container[data-design="gradient-bold"] .interest-tag.primary {
-      background: linear-gradient(135deg, #2ecc71 0%, #c23150 100%);
+      background: linear-gradient(135deg, #ff8c00 0%, #c23150 100%);
       border: none;
       color: #fff;
     }
 
     .about-container[data-design="gradient-bold"] .timeline-item::before {
-      background: linear-gradient(135deg, #2ecc71 0%, #7ec8e3 100%);
+      background: linear-gradient(135deg, #ff8c00 0%, #7ec8e3 100%);
       width: 12px;
       height: 12px;
     }
 
     .about-container[data-design="gradient-bold"] .project-card {
-      background: linear-gradient(135deg, #1a0a15 0%, #2a1a26 100%);
-      border: 2px solid #2ecc71;
+      background: linear-gradient(135deg, #000000 0%, #000000 100%);
+      border: 2px solid #ff8c00;
       transition: all 0.25s ease;
     }
 
@@ -232,9 +234,9 @@ const designTheme = "modern-clean";
       user-select: none;
     }
 
-    /* Add subtle cyberpunk atmosphere */
-    .about-container * {
-      cursor: default;
+    /* Allow text selection on all elements */
+    .about-container {
+      user-select: auto;
     }
 
     .about-container a {
@@ -257,7 +259,7 @@ const designTheme = "modern-clean";
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: #2ecc71;
+      color: #ff8c00;
       border-bottom: 1px solid #333;
       padding-bottom: 8px;
       margin-bottom: 12px;
@@ -277,9 +279,9 @@ const designTheme = "modern-clean";
     }
 
     .lang-badge {
-      background: #1a0a15;
-      border: 1px solid #2ecc71;
-      color: #2ecc71;
+      background: #000000;
+      border: 1px solid #ff8c00;
+      color: #ff8c00;
       padding: 6px 12px;
       font-size: 12px;
       font-weight: bold;
@@ -306,7 +308,7 @@ const designTheme = "modern-clean";
       top: 6px;
       width: 8px;
       height: 8px;
-      background: #2ecc71;
+      background: #ff8c00;
       border: 2px solid #222233;
     }
 
@@ -328,7 +330,7 @@ const designTheme = "modern-clean";
     }
 
     .timeline-date {
-      color: #2ecc71;
+      color: #ff8c00;
       font-size: 12px;
       font-weight: bold;
       margin-bottom: 6px;
@@ -348,7 +350,7 @@ const designTheme = "modern-clean";
     }
 
     .project-card {
-      background: #1a0a15;
+      background: #000000;
       border: 1px solid #333;
       padding: 12px;
       display: flex;
@@ -358,8 +360,8 @@ const designTheme = "modern-clean";
     }
 
     .project-card:hover {
-      border-color: #2ecc71;
-      background: #1a0a15;
+      border-color: #ff8c00;
+      background: #000000;
       box-shadow: 0 0 12px rgba(46, 204, 113, 0.2);
     }
 
@@ -387,7 +389,7 @@ const designTheme = "modern-clean";
     }
 
     .project-card-lang {
-      color: #2ecc71;
+      color: #ff8c00;
       font-size: 11px;
       font-weight: bold;
       text-transform: uppercase;
@@ -402,23 +404,99 @@ const designTheme = "modern-clean";
     }
 
     .interest-tag {
-      background: #1a0a15;
-      border: 1px solid #2ecc71;
-      color: #2ecc71;
+      background: #000000;
+      border: 1px solid #ff8c00;
+      color: #ff8c00;
       padding: 6px 12px;
       font-size: 12px;
       font-weight: bold;
+      border-radius: 0;
     }
 
     .interest-tag.primary {
-      border-color: #2ecc71;
-      color: #2ecc71;
+      border-color: #ff8c00;
+      color: #ff8c00;
     }
 
     .section-divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, #333, transparent);
       margin: 32px 0;
+    }
+
+    /* Light mode overrides for about page */
+    body.light-mode .about-container[data-design="modern-clean"] .profile-section {
+      background: linear-gradient(135deg, #e0e0e0 0%, #e0e0e0 100%);
+    }
+
+    body.light-mode .about-container[data-design="modern-clean"] .profile-text {
+      color: #333;
+    }
+
+    body.light-mode .about-container[data-design="modern-clean"] .info-box {
+      background: #e0e0e0;
+      border: 1px solid #ccc;
+      border-left: 3px solid #ff8c00;
+    }
+
+    body.light-mode .about-container[data-design="modern-clean"] .info-box h3 {
+      color: #ff8c00;
+      border-bottom: 1px solid #ccc;
+    }
+
+    body.light-mode .project-card,
+    body.light-mode .lang-badge,
+    body.light-mode .interest-tag {
+      background: #e0e0e0;
+      border-color: #ccc;
+    }
+
+    body.light-mode .project-card {
+      border: 1px solid #ccc;
+    }
+
+    body.light-mode .lang-badge {
+      border: 1px solid #ccc;
+      color: #555;
+    }
+
+    body.light-mode .interest-tag {
+      border: 1px solid #ccc;
+      color: #555;
+    }
+
+    body.light-mode .project-card-title,
+    body.light-mode .project-card-title a {
+      color: #333;
+    }
+
+    body.light-mode .project-card-desc {
+      color: #666;
+    }
+
+    body.light-mode .project-card-lang {
+      color: #ff8c00;
+    }
+
+    body.light-mode .section-divider {
+      background: linear-gradient(90deg, transparent, #ccc, transparent);
+    }
+
+    body.light-mode .about-container h2 {
+      color: #222;
+      border-bottom: 2px solid #ff8c00;
+    }
+
+    body.light-mode .timeline-title {
+      color: #222;
+    }
+
+    body.light-mode .timeline-meta {
+      color: #555;
+    }
+
+    body.light-mode .timeline-desc {
+      color: #666;
     }
 
     @media (max-width: 700px) {
