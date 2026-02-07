@@ -366,16 +366,22 @@ const year = new Date().getFullYear();
         color: #aedff7;
       }
 
-      /* Allow text selection everywhere */
+      /* Allow text selection everywhere without text cursor */
       h1, h2, h3, h4, h5, h6, p, span, div {
         user-select: auto;
         cursor: default;
+        caret-color: transparent;
       }
 
       /* Links and buttons remain clickable */
       a, button {
         user-select: auto;
         cursor: pointer;
+      }
+
+      /* Remove text input cursor globally */
+      * {
+        caret-color: transparent;
       }
 
       .content ul {
@@ -581,15 +587,10 @@ const year = new Date().getFullYear();
           <ul class="links-list">
             <li><a href="https://github.com/smatand" target="_blank">GitHub</a></li>
             <li><a href="https://linkedin.com/in/smatand" target="_blank">LinkedIn</a></li>
-            <li><a href="/cv.pdf" download>Download CV</a></li>
           </ul>
         </div>
 
 
-        <div class="widget">
-          <div class="counter-box" id="visitor-counter">000,000</div>
-          <div class="counter-label">visitors since 2025</div>
-        </div>
       </div>
 
       <div class="content">
@@ -599,9 +600,7 @@ const year = new Date().getFullYear();
 
     <div class="footer">
       <div class="separator"></div>
-      &copy; {year} Andrej Smatana · est. 2025
-      <br />
-      best viewed at 1024x768
+      &copy; {year} Andrej Smatana
     </div>
 
     <script>
@@ -611,29 +610,6 @@ const year = new Date().getFullYear();
         const href = a.getAttribute("href")?.replace(/\/$/, "") || "/";
         if (href === path) a.classList.add("active");
       });
-
-      // visitor counter using localStorage
-      function updateVisitorCounter() {
-        const counterKey = "site-visitors";
-        let count = localStorage.getItem(counterKey);
-
-        if (!count) {
-          count = 1;
-        } else {
-          count = parseInt(count) + 1;
-        }
-
-        localStorage.setItem(counterKey, count);
-
-        // Format number with commas (e.g., 004,217)
-        const formatted = String(count).padStart(6, '0').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        const counterElement = document.getElementById('visitor-counter');
-        if (counterElement) {
-          counterElement.textContent = formatted;
-        }
-      }
-
-      updateVisitorCounter();
 
       // theme toggle functionality
       function initThemeToggle() {
