@@ -1,18 +1,57 @@
 ---
-intro: "hello! i'm a software developer who enjoys working with systems programming languages and building things from scratch."
+name: "Andrej Smatana"
+location: "Brno, Czechia"
+github: "github.com/smatand"
+linkedin: "linkedin.com/in/smatand"
+profile: "Programming enthusiast with a passion for low-level programming. System admin at Indra Avitech, automating repetitive tasks using Python, PowerShell, or Bash, interacting mostly with pre-built software images."
 experience:
-  - company: "Acme Corp"
-    role: "Software Engineer"
-    duration: "2023 - present"
-    description: "Building backend services in Go and Rust."
-  - company: "Startup Inc"
-    role: "Junior Developer"
-    duration: "2021 - 2023"
-    description: "Full-stack work with Python and TypeScript."
+  - company: "Indra Avitech s. r. o."
+    role: "System Administrator"
+    location: "Bratislava, Slovakia"
+    duration: "July 2022 - Present"
+    description: "International developer of IT systems for the aviation industry. Patching internal/customer systems, automation with Ansible, Python, PowerShell. Upgrading CentOS to Rocky Linux. Backups via Veeam, VMWare PowerCLI. Jenkins, pfSense VPNs, AWS EC2 with Terraform."
+education:
+  - school: "Masaryk's University"
+    faculty: "Faculty of Informatics"
+    degree: "Master of Information Security"
+    location: "Brno, Czechia"
+    duration: "Sep. 2024 - present"
+  - school: "Brno University of Technology"
+    faculty: "Faculty of Information Technology"
+    degree: "Bachelor of Information Technology"
+    location: "Brno, Czechia"
+    duration: "Sep. 2021 - August 2024"
+  - school: "High Technical school in Povazska Bystrica"
+    degree: "Technical Engineering"
+    location: "Povazska Bystrica, Slovakia"
+    duration: "Sep. 2017 - May 2021"
+projects:
+  - name: "vinted_go"
+    url: "https://github.com/smatand/vinted_go"
+    description: "Discord bot for notifying about newly added items to Vinted store"
+    lang: "Go"
+  - name: "ios_project1"
+    url: "https://github.com/smatand/ios_project1"
+    description: "Shell script to process data of coronavirus-infected people"
+    lang: "Shell"
+  - name: "dhcp-statistics"
+    url: "https://github.com/smatand/dhcp-statistics"
+    description: "C++ program to monitor the allocation of IP addresses for each user-given prefix of a subnet"
+    lang: "C++"
 languages:
-  - Go
-  - C++
-  - Rust
-  - Python
-  - TypeScript
+  - "Go"
+  - "C++"
+  - "Rust"
+  - "Python"
+  - "TypeScript"
+  - "PowerShell"
+  - "Bash"
+spoken:
+  - "Slovak (native)"
+  - "Czech"
+  - "English (B1)"
+interests:
+  - "Hiking"
+  - "Reading books"
+  - "Analog photography"
 ---

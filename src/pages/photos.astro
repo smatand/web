@@ -8,33 +8,20 @@ const photos = (await getCollection("photos")).sort(
 );
 ---
 
-<Base
-  title="Integrated Display Configuration"
-  helpText="Analog camera photo output. Captured on film, digitized for display."
-  parentHref="/"
->
-  <div class="sec">Display Adapter: Analog Camera Output</div>
-  <div class="row" data-help="Total number of photos in the gallery.">
-    <span class="k">Total Frames Captured</span>
-    <span class="v">{photos.length}</span>
-  </div>
-  <div class="row" data-help="Current output rendering mode.">
-    <span class="k">Output Mode</span>
-    <span class="v">Gallery</span>
-  </div>
+<Base title="Photos">
+  <h2>Analog Photography</h2>
+  <p>Shots from my film camera. Captured on analog, scanned for the web.</p>
 
   {photos.length === 0 && (
-    <div class="ln dim" style="margin-top:8px;">
-      No display output detected. Upload photos via /admin/ CMS panel.
-    </div>
+    <p><em>No photos yet — upload some via the <a href="/admin/">CMS admin panel</a>.</em></p>
   )}
 
   {photos.length > 0 && (
     <div class="gallery">
       {photos.map((photo) => (
-        <div class="thumb">
-          <Image src={photo.data.image} alt={photo.data.caption ?? photo.data.title} width={300} />
-          <div class="cap">
+        <div class="photo-card">
+          <Image src={photo.data.image} alt={photo.data.caption ?? photo.data.title} width={400} />
+          <div class="photo-info">
             {photo.data.caption ?? photo.data.title}
             <br />
             {photo.data.date.toLocaleDateString()}
@@ -43,14 +30,4 @@ const photos = (await getCollection("photos")).sort(
       ))}
     </div>
   )}
-
-  <div class="sec">Navigation</div>
-  <a class="row" href="/" data-help="Return to main CMOS setup screen.">
-    <span class="k">&#9654; Standard CMOS Features</span>
-    <span class="v">Home</span>
-  </a>
-  <a class="row" href="/projects" data-help="View installed projects.">
-    <span class="k">&#9654; Advanced Chipset Features</span>
-    <span class="v">Projects</span>
-  </a>
 </Base>

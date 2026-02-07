@@ -1,371 +1,460 @@
 ---
 interface Props {
   title: string;
-  helpText?: string;
-  parentHref?: string;
 }
 
-const {
-  title,
-  helpText = "Use arrow keys to navigate. Press Enter to select an item.",
-  parentHref,
-} = Astro.props;
+const { title } = Astro.props;
+const year = new Date().getFullYear();
 ---
 
 <!doctype html>
-<html lang="en" data-parent={parentHref ?? ""}>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
+    <title>~smatand - {title}</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap");
-
-      :root {
-        --bg: #0000aa;
-        --text: #ffffff;
-        --text-dim: #aaaaaa;
-        --yellow: #ffff55;
-        --cyan: #55ffff;
-        --red-bg: #aa0000;
-        --sel-bg: #aaaaaa;
-        --sel-text: #000000;
-        --border: #ffffff;
-        --hotkey-hi: #ffffff;
-        --hotkey-lo: #aaaaaa;
-      }
-
-      html.dark {
-        --bg: #0c0c0c;
-        --text: #00ff41;
-        --text-dim: #00aa2a;
-        --yellow: #00ff00;
-        --cyan: #00ffaa;
-        --red-bg: #002200;
-        --sel-bg: #00ff41;
-        --sel-text: #000000;
-        --border: #00ff41;
-        --hotkey-hi: #00ff41;
-        --hotkey-lo: #00aa2a;
-      }
+      @import url("https://fonts.googleapis.com/css2?family=Trebuchet+MS&family=Georgia&display=swap");
 
       * { margin: 0; padding: 0; box-sizing: border-box; }
 
       body {
-        font-family: "IBM Plex Mono", "Courier New", monospace;
-        font-size: 14px;
-        background: var(--bg);
-        color: var(--text);
-        min-height: 100vh;
+        background: #2b2b3d;
+        color: #e0e0e0;
+        font-family: Verdana, "Trebuchet MS", Geneva, sans-serif;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      /* ═══ TOP BANNER ═══ */
+      .banner {
+        background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        border-bottom: 3px solid #0f3460;
+        text-align: center;
+        padding: 28px 20px 22px;
+      }
+
+      .banner h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 32px;
+        font-weight: 400;
+        color: #e0e0e0;
+        letter-spacing: 3px;
+      }
+
+      .banner h1 span {
+        color: #e94560;
+      }
+
+      .banner .tagline {
+        font-size: 11px;
+        color: #888;
+        margin-top: 6px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      /* ═══ NAVIGATION ═══ */
+      .navbar {
+        background: #1a1a2e;
+        border-bottom: 1px solid #333;
+        padding: 0;
         display: flex;
         justify-content: center;
-        padding: 8px;
-        line-height: 1.4;
-        cursor: default;
       }
 
-      .screen {
-        width: 100%;
-        max-width: 920px;
+      .navbar a {
+        display: inline-block;
+        padding: 10px 24px;
+        color: #aaa;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-right: 1px solid #333;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .navbar a:first-child {
+        border-left: 1px solid #333;
+      }
+
+      .navbar a:hover,
+      .navbar a.active {
+        background: #e94560;
+        color: #fff;
+      }
+
+      /* ═══ LAYOUT: sidebar + content ═══ */
+      .page {
+        max-width: 960px;
+        margin: 0 auto;
         display: flex;
-        flex-direction: column;
+        gap: 0;
+        min-height: 70vh;
       }
 
-      /* ── TITLE ── */
-      .title-bar {
-        text-align: center;
-        padding: 6px 0 4px;
-      }
-
-      .title-bar .copy {
-        color: var(--text-dim);
-        font-size: 13px;
-      }
-
-      .title-bar .page {
-        color: var(--text);
-        font-weight: 700;
-      }
-
-      /* ── MAIN PANEL ── */
-      .panel {
-        border: 2px solid var(--border);
-        display: flex;
-        flex: 1;
-        min-height: 0;
-      }
-
-      .left {
-        flex: 1;
-        padding: 8px 12px;
-        overflow-y: auto;
-        border-right: 2px solid var(--border);
-      }
-
-      .right {
-        width: 270px;
+      /* ═══ SIDEBAR ═══ */
+      .sidebar {
+        width: 200px;
         flex-shrink: 0;
-        padding: 8px 10px;
-        border-left: none;
-      }
-
-      .right .help-head {
-        text-align: center;
-        font-weight: 700;
-        color: var(--text);
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 4px;
-        margin-bottom: 6px;
-      }
-
-      .right .help-menu {
-        color: var(--yellow);
-        margin-bottom: 8px;
-        font-size: 13px;
-      }
-
-      .right .help-body {
-        color: var(--text);
-        font-size: 13px;
-        line-height: 1.5;
-      }
-
-      /* ── ROWS ── */
-      .row {
-        display: flex;
-        justify-content: space-between;
-        padding: 2px 6px;
-        text-decoration: none;
-        color: var(--text);
-        outline: none;
-      }
-
-      .row .k { color: var(--text); }
-      .row .v { color: var(--yellow); }
-
-      .row.active,
-      .row:focus {
-        background: var(--sel-bg);
-      }
-
-      .row.active .k,
-      .row.active .v,
-      .row:focus .k,
-      .row:focus .v {
-        color: var(--sel-text);
-      }
-
-      /* first value on the page gets the red highlight like BIOS */
-      .row.red-val .v {
-        background: var(--red-bg);
-        color: var(--text);
-        padding: 0 4px;
-      }
-      .row.red-val.active .v {
-        background: var(--sel-bg);
-        color: var(--sel-text);
-      }
-
-      /* navigation arrows */
-      .row .arrow {
-        color: var(--yellow);
-      }
-      .row.active .arrow {
-        color: var(--sel-text);
-      }
-
-      /* ── SECTION HEADERS ── */
-      .sec {
-        color: var(--yellow);
-        font-weight: 700;
-        padding: 2px 6px;
-        margin-top: 12px;
-      }
-
-      .sec:first-child { margin-top: 0; }
-
-      /* ── INFO LINES ── */
-      .ln {
-        padding: 1px 6px;
-        color: var(--text);
-      }
-
-      .ln.dim { color: var(--text-dim); }
-      .ln.cy { color: var(--cyan); }
-
-      .ln a {
-        color: var(--cyan);
-        text-decoration: none;
-      }
-
-      .ln a:hover { text-decoration: underline; }
-
-      /* ── SCROLLBAR ── */
-      .left::-webkit-scrollbar { width: 12px; background: var(--bg); }
-      .left::-webkit-scrollbar-thumb { background: var(--text-dim); }
-
-      /* ── HOTKEY BAR ── */
-      .hotbar {
-        border: 2px solid var(--border);
-        border-top: none;
-        padding: 5px 8px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 4px 16px;
+        background: #1a1a2e;
+        border-right: 1px solid #333;
+        padding: 20px 16px;
         font-size: 12px;
       }
 
-      .hk .hi { color: var(--hotkey-hi); font-weight: 700; }
-      .hk .lo { color: var(--hotkey-lo); }
+      .sidebar .widget {
+        margin-bottom: 24px;
+      }
 
-      /* ── GALLERY ── */
+      .sidebar .widget-title {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #e94560;
+        border-bottom: 1px solid #333;
+        padding-bottom: 6px;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      .sidebar .widget p {
+        color: #999;
+        line-height: 1.6;
+      }
+
+      .sidebar .widget a {
+        color: #7ec8e3;
+        text-decoration: none;
+      }
+
+      .sidebar .widget a:hover {
+        text-decoration: underline;
+      }
+
+      .sidebar .links-list {
+        list-style: none;
+      }
+
+      .sidebar .links-list li {
+        padding: 3px 0;
+      }
+
+      .sidebar .links-list a {
+        color: #7ec8e3;
+        text-decoration: none;
+        font-size: 12px;
+      }
+
+      .sidebar .links-list a:hover {
+        color: #e94560;
+      }
+
+      .sidebar .links-list a::before {
+        content: "» ";
+        color: #555;
+      }
+
+      .sidebar .counter-box {
+        background: #111;
+        border: 1px solid #333;
+        padding: 8px;
+        text-align: center;
+        color: #e94560;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+
+      .sidebar .counter-label {
+        font-size: 10px;
+        color: #666;
+        text-align: center;
+        margin-top: 4px;
+      }
+
+      /* ═══ MAIN CONTENT ═══ */
+      .content {
+        flex: 1;
+        padding: 24px 28px;
+        background: #222233;
+      }
+
+      .content h2 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 20px;
+        font-weight: 400;
+        color: #e0e0e0;
+        border-bottom: 2px solid #e94560;
+        padding-bottom: 6px;
+        margin-bottom: 16px;
+        margin-top: 28px;
+      }
+
+      .content h2:first-child {
+        margin-top: 0;
+      }
+
+      .content h3 {
+        font-size: 14px;
+        color: #e94560;
+        margin-top: 18px;
+        margin-bottom: 6px;
+      }
+
+      .content p {
+        margin-bottom: 12px;
+        color: #ccc;
+      }
+
+      .content a {
+        color: #7ec8e3;
+        text-decoration: none;
+      }
+
+      .content a:hover {
+        text-decoration: underline;
+        color: #aedff7;
+      }
+
+      .content ul {
+        margin: 8px 0 16px 20px;
+        color: #ccc;
+      }
+
+      .content li {
+        margin-bottom: 4px;
+      }
+
+      .content strong {
+        color: #e0e0e0;
+      }
+
+      .content em {
+        color: #aaa;
+        font-style: italic;
+      }
+
+      /* ── Cards ── */
+      .xp-card {
+        background: #1a1a2e;
+        border: 1px solid #333;
+        border-left: 3px solid #e94560;
+        padding: 14px 16px;
+        margin: 10px 0;
+      }
+
+      .xp-card .xp-title {
+        font-weight: bold;
+        font-size: 14px;
+        color: #e0e0e0;
+      }
+
+      .xp-card .xp-place {
+        color: #7ec8e3;
+        font-size: 12px;
+        margin-top: 2px;
+      }
+
+      .xp-card .xp-date {
+        color: #e94560;
+        font-size: 11px;
+        font-weight: bold;
+        margin-top: 4px;
+      }
+
+      .xp-card .xp-desc {
+        color: #999;
+        font-size: 12px;
+        margin-top: 8px;
+        line-height: 1.65;
+      }
+
+      /* ── Tags ── */
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 8px 0;
+      }
+
+      .tag {
+        background: #1a1a2e;
+        border: 1px solid #444;
+        color: #7ec8e3;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 3px 10px;
+      }
+
+      .tag.primary {
+        border-color: #e94560;
+        color: #e94560;
+      }
+
+      /* ── Project rows ── */
+      .project-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 8px 0;
+        border-bottom: 1px dotted #333;
+      }
+
+      .project-row:last-child {
+        border-bottom: none;
+      }
+
+      .project-name {
+        font-weight: bold;
+        color: #e0e0e0;
+      }
+
+      .project-name a {
+        color: #7ec8e3;
+      }
+
+      .project-desc {
+        color: #999;
+        font-size: 12px;
+      }
+
+      .project-lang {
+        font-size: 11px;
+        color: #e94560;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+
+      /* ── Photo gallery ── */
       .gallery {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-        gap: 6px;
-        margin-top: 6px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+        margin-top: 12px;
       }
 
-      .gallery .thumb {
-        border: 1px solid var(--border);
-        padding: 3px;
-        text-align: center;
+      .gallery .photo-card {
+        background: #1a1a2e;
+        border: 1px solid #333;
+        overflow: hidden;
       }
 
-      .gallery img {
+      .gallery .photo-card img {
         width: 100%;
         height: auto;
         display: block;
       }
 
-      .gallery .cap {
-        font-size: 11px;
-        margin-top: 3px;
-        color: var(--cyan);
+      .gallery .photo-card .photo-info {
+        padding: 8px 10px;
+        font-size: 12px;
+        color: #999;
       }
 
-      /* ── RESPONSIVE ── */
+      /* ═══ FOOTER ═══ */
+      .footer {
+        background: #1a1a2e;
+        border-top: 3px solid #0f3460;
+        text-align: center;
+        padding: 16px 20px;
+        font-size: 11px;
+        color: #555;
+      }
+
+      .footer a {
+        color: #7ec8e3;
+        text-decoration: none;
+      }
+
+      .footer .separator {
+        margin: 8px auto;
+        width: 200px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #e94560, transparent);
+      }
+
+      /* ═══ RESPONSIVE ═══ */
       @media (max-width: 700px) {
-        .panel { flex-direction: column; }
-        .right { width: 100%; border-top: 2px solid var(--border); }
-        .left { border-right: none; }
+        .page {
+          flex-direction: column;
+        }
+        .sidebar {
+          width: 100%;
+          border-right: none;
+          border-bottom: 1px solid #333;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+        .sidebar .widget {
+          margin-bottom: 8px;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="screen">
-      <div class="title-bar">
-        <div class="copy">CMOS Setup Utility - Copyright (C) 1984-2025 Award Software</div>
-        <div class="page">{title}</div>
+    <div class="banner">
+      <h1>Andrej <span>Smatana</span></h1>
+      <div class="tagline">software developer · sysadmin · analog photographer</div>
+    </div>
+
+    <div class="navbar">
+      <a href="/" id="nav-home">Home</a>
+      <a href="/about" id="nav-about">About / CV</a>
+    </div>
+
+    <div class="page">
+      <div class="sidebar">
+        <div class="widget">
+          <div class="widget-title">Quick Info</div>
+          <p>📍 Brno, Czechia</p>
+          <p>🎓 MSc student</p>
+          <p>💼 Sysadmin</p>
+        </div>
+
+        <div class="widget">
+          <div class="widget-title">Links</div>
+          <ul class="links-list">
+            <li><a href="https://github.com/smatand" target="_blank">GitHub</a></li>
+            <li><a href="https://linkedin.com/in/smatand" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+
+        <div class="widget">
+          <div class="widget-title">Languages</div>
+          <p style="color: #7ec8e3; font-size: 11px; line-height: 1.8;">
+            Go · C++ · Rust · Python · TypeScript · PowerShell · Bash
+          </p>
+        </div>
+
+        <div class="widget">
+          <div class="counter-box">004,217</div>
+          <div class="counter-label">visitors since 2025</div>
+        </div>
       </div>
 
-      <div class="panel">
-        <div class="left">
-          <slot />
-        </div>
-        <div class="right">
-          <div class="help-head">Item Help</div>
-          <div class="help-menu">Menu Level &nbsp; &#9654;</div>
-          <div class="help-body" id="help-body">{helpText}</div>
-        </div>
-      </div>
-
-      <div class="hotbar">
-        <span class="hk"><span class="hi">&#8593;&#8595;</span><span class="lo">:Move</span></span>
-        <span class="hk"><span class="hi">Enter</span><span class="lo">:Select</span></span>
-        <span class="hk"><span class="hi">+/-</span><span class="lo">:Value</span></span>
-        <span class="hk"><span class="hi">F10</span><span class="lo">:Save</span></span>
-        <span class="hk"><span class="hi">ESC</span><span class="lo">:Back</span></span>
-        <span class="hk"><span class="hi">F1</span><span class="lo">:Help</span></span>
-        <span class="hk"><span class="hi">F7</span><span class="lo">:Theme</span></span>
+      <div class="content">
+        <slot />
       </div>
     </div>
 
-    <script define:vars={{ parentHref }}>
-      const html = document.documentElement;
-      const helpBody = document.getElementById("help-body");
-      const defaultHelp = helpBody?.textContent ?? "";
+    <div class="footer">
+      <div class="separator"></div>
+      &copy; {year} Andrej Smatana · est. 2025
+      <br />
+      best viewed at 1024x768
+    </div>
 
-      // theme from storage
-      if (localStorage.getItem("theme") === "dark") {
-        html.classList.add("dark");
-      }
-
-      // all navigable rows
-      const rows = Array.from(document.querySelectorAll(".row"));
-      let idx = 0;
-
-      function activate(i) {
-        rows.forEach((r) => r.classList.remove("active"));
-        idx = ((i % rows.length) + rows.length) % rows.length;
-        const row = rows[idx];
-        if (row) {
-          row.classList.add("active");
-          row.scrollIntoView({ block: "nearest" });
-          // update help panel
-          if (helpBody) {
-            helpBody.textContent = row.dataset.help || defaultHelp;
-          }
-        }
-      }
-
-      if (rows.length > 0) activate(0);
-
-      document.addEventListener("keydown", (e) => {
-        switch (e.key) {
-          case "ArrowDown":
-          case "+":
-            e.preventDefault();
-            activate(idx + 1);
-            break;
-
-          case "ArrowUp":
-          case "-":
-            e.preventDefault();
-            activate(idx - 1);
-            break;
-
-          case "Enter": {
-            e.preventDefault();
-            const el = rows[idx];
-            if (el && el.tagName === "A") {
-              el.click();
-            }
-            break;
-          }
-
-          case "Escape": {
-            e.preventDefault();
-            const parent = html.dataset.parent;
-            if (parent) {
-              window.location.href = parent;
-            }
-            break;
-          }
-
-          case "F7":
-            e.preventDefault();
-            html.classList.toggle("dark");
-            localStorage.setItem(
-              "theme",
-              html.classList.contains("dark") ? "dark" : "light",
-            );
-            break;
-
-          case "F1":
-            e.preventDefault();
-            if (helpBody) {
-              helpBody.textContent =
-                "↑↓ or +/- to move between items. Enter to follow links. ESC to go back. F7 to toggle theme.";
-            }
-            break;
-        }
-      });
-
-      // mouse click on rows
-      rows.forEach((row, i) => {
-        row.addEventListener("click", () => activate(i));
+    <script>
+      // highlight active nav link
+      const path = window.location.pathname.replace(/\/$/, "") || "/";
+      document.querySelectorAll(".navbar a").forEach((a) => {
+        const href = a.getAttribute("href")?.replace(/\/$/, "") || "/";
+        if (href === path) a.classList.add("active");
       });
     </script>
   </body>
