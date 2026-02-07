@@ -7,7 +7,7 @@ const raw = fs.readFileSync("src/content/pages/about.md", "utf-8");
 const { data } = matter(raw);
 
 const profile: string = data.profile ?? "";
-const experience: { company: string; role: string; location: string; duration: string; description: string }[] = data.experience ?? [];
+const experience: { company: string; role: string; product?: string; location: string; duration: string; description: string }[] = data.experience ?? [];
 const education: { school: string; faculty?: string; degree: string; location: string; duration: string; thesis?: string }[] = data.education ?? [];
 const projects: { name: string; url: string; description: string; lang: string }[] = data.projects ?? [];
 const languages: string[] = data.languages ?? [];
@@ -84,8 +84,8 @@ const designTheme = "modern-clean";
 
     .about-container[data-design="retro-cyber"] .lang-badge {
       background: #000000;
-      border: 1px solid #555;
-      color: #888;
+      border: 1px solid #ff8c00;
+      color: #ff8c00;
       font-family: 'Courier New', monospace;
       font-weight: normal;
       box-shadow: none;
@@ -139,9 +139,9 @@ const designTheme = "modern-clean";
 
     .about-container[data-design="minimal-cards"] .lang-badge {
       background: transparent;
-      border: 1px solid #555;
+      border: 1px solid #ff8c00;
       padding: 6px 12px;
-      color: #888;
+      color: #ff8c00;
       font-weight: normal;
     }
 
@@ -194,8 +194,8 @@ const designTheme = "modern-clean";
 
     .about-container[data-design="gradient-bold"] .lang-badge {
       background: linear-gradient(135deg, #2a1a26 0%, #3d2333 100%);
-      border: 1px solid #555;
-      color: #999;
+      border: 1px solid #ff8c00;
+      color: #ff8c00;
       font-weight: normal;
     }
 
@@ -280,8 +280,8 @@ const designTheme = "modern-clean";
 
     .lang-badge {
       background: #000000;
-      border: 1px solid #555;
-      color: #999;
+      border: 1px solid #ff8c00;
+      color: #ff8c00;
       padding: 6px 12px;
       font-size: 11px;
       font-weight: normal;
@@ -412,8 +412,8 @@ const designTheme = "modern-clean";
 
     .interest-tag {
       background: #000000;
-      border: 1px solid #555;
-      color: #999;
+      border: 1px solid #ff8c00;
+      color: #ff8c00;
       padding: 6px 12px;
       font-size: 11px;
       font-weight: normal;
@@ -421,8 +421,8 @@ const designTheme = "modern-clean";
     }
 
     .interest-tag.primary {
-      border-color: #555;
-      color: #999;
+      border-color: #ff8c00;
+      color: #ff8c00;
     }
 
     .section-divider {
@@ -551,7 +551,7 @@ const designTheme = "modern-clean";
         <div class="timeline-item">
           <div class="timeline-content">
             <div class="timeline-title">{exp.role}</div>
-            <div class="timeline-meta">{exp.company} · {exp.location}</div>
+            <div class="timeline-meta">{exp.company} {exp.product && `· ${exp.product}`} · {exp.location}</div>
             <div class="timeline-date">{exp.duration}</div>
             <div class="timeline-desc">{exp.description}</div>
           </div>
