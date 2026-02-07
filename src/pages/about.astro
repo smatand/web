@@ -8,7 +8,7 @@ const { data } = matter(raw);
 
 const profile: string = data.profile ?? "";
 const experience: { company: string; role: string; location: string; duration: string; description: string }[] = data.experience ?? [];
-const education: { school: string; faculty?: string; degree: string; location: string; duration: string }[] = data.education ?? [];
+const education: { school: string; faculty?: string; degree: string; location: string; duration: string; thesis?: string }[] = data.education ?? [];
 const projects: { name: string; url: string; description: string; lang: string }[] = data.projects ?? [];
 const languages: string[] = data.languages ?? [];
 const spoken: string[] = data.spoken ?? [];
@@ -342,6 +342,13 @@ const designTheme = "modern-clean";
       line-height: 1.65;
     }
 
+    .timeline-thesis {
+      color: #888;
+      font-size: 12px;
+      font-style: italic;
+      margin-top: 6px;
+    }
+
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -560,6 +567,7 @@ const designTheme = "modern-clean";
             <div class="timeline-title">{edu.degree}</div>
             <div class="timeline-meta">{edu.faculty ? `${edu.faculty}, ` : ""}{edu.school}</div>
             <div class="timeline-date">{edu.duration} · {edu.location}</div>
+            {edu.thesis && <div class="timeline-thesis">Thesis: {edu.thesis}</div>}
           </div>
         </div>
       ))}
